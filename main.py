@@ -2,7 +2,7 @@
 Main module providing a user interface for the store management system.
 """
 
-from typing import List
+
 import products
 import store
 
