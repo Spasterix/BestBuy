@@ -2,7 +2,6 @@
 Main module providing a user interface for the store management system.
 """
 
-from typing import List
 import products
 import store
 
@@ -20,7 +19,7 @@ def display_menu() -> None:
 def list_products(store_instance: store.Store) -> None:
     """
     Lists all active products in the store.
-
+    
     Args:
         store_instance: Store instance to display products from
     """
@@ -33,7 +32,7 @@ def list_products(store_instance: store.Store) -> None:
 def show_total_amount(store_instance: store.Store) -> None:
     """
     Shows the total quantity of items in the store.
-
+    
     Args:
         store_instance: Store instance to get total from
     """
@@ -44,25 +43,25 @@ def show_total_amount(store_instance: store.Store) -> None:
 def make_order(store_instance: store.Store) -> None:
     """
     Handles the order process.
-
+    
     Args:
         store_instance: Store instance to order from
     """
     shopping_list = []
     active_products = store_instance.get_all_products()
-
+    
     if not active_products:
         print("\nNo active products available for purchase!")
         return
-
+        
     while True:
         list_products(store_instance)
         print("\nEnter product number and quantity (e.g., '1 5'), or 'done' to finish:")
-
+        
         user_input = input("> ").strip().lower()
         if user_input == 'done':
             break
-
+            
         try:
             prod_num, quantity = map(int, user_input.split())
             if 1 <= prod_num <= len(active_products):
@@ -73,13 +72,13 @@ def make_order(store_instance: store.Store) -> None:
                 print("Invalid product number!")
         except ValueError:
             print("Invalid input! Please use format 'product_number quantity'")
-
+            
     if shopping_list:
         try:
             total_price = store_instance.order(shopping_list)
             print(f"\nOrder completed! Total price: ${total_price:.2f}")
-        except ValueError as e:
-            print(f"\nError processing order: {e}")
+        except ValueError as error:
+            print(f"\nError processing order: {error}")
     else:
         print("\nNo items in order!")
 
@@ -87,14 +86,14 @@ def make_order(store_instance: store.Store) -> None:
 def start(store_instance: store.Store) -> None:
     """
     Main function to start the store management interface.
-
+    
     Args:
         store_instance: Store instance to manage
     """
     while True:
         display_menu()
         choice = input("\nEnter your choice (1-4): ").strip()
-
+        
         if choice == '1':
             list_products(store_instance)
         elif choice == '2':
@@ -116,7 +115,7 @@ def main():
         products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
         products.Product("Google Pixel 7", price=500, quantity=250)
     ]
-
+    
     best_buy = store.Store(product_list)
     start(best_buy)
 

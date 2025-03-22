@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+"""
+Module for managing products in a store.
+"""
+
 
 class Product:
     """
